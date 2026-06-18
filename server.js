@@ -77,7 +77,7 @@ app.post('/api/matches/register', async (req, res) => {
         if (!match || match.slotsAvailable <= 0) return res.status(400).json({ message: "Unavailable!" });
         match.registeredPlayers.push(userId);
         match.slotsAvailable -= 1;
-        await match.save();
+        await mat
         res.json({ success: true, message: "Registered!" });
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
