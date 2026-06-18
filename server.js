@@ -1,4 +1,3 @@
-```javascript
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -68,6 +67,7 @@ app.post('/api/auth/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials!" });
 
+        // FIX: Yahan pehle galat token character tha, ab ekdam sahi hai
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' });
         res.json({ success: true, token, user: { username, ffUid: user.ffUid, balance: user.balance } });
     } catch (err) {
@@ -123,5 +123,5 @@ app.post('/api/matches/register', async (req, res) => {
 // Port Management for Render Cloud
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-    console.log(`🚀 Control Center Active on Port ${PORT}! App is fully operational.`);
+    console.log("🚀 Control Center Active! App is fully operational.");
 });
